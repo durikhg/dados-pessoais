@@ -1,0 +1,144 @@
+/* Reset básico para eliminar diferenças entre navegadores */
+body, h1, h2, p, form, input, button {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Cor de fundo e estilo geral */
+body {
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+  background: linear-gradient(45deg, #f06, #ff0, #0f0, #00f);
+  background-size: 400% 400%;
+  animation: gradientAnimation 15s ease infinite;
+  color: #fff;
+  text-align: center;
+  padding: 20px;
+}
+
+header {
+  background: rgba(0, 0, 0, 0.5);
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+}
+
+h1 {
+  font-size: 3em;
+  color: #ff0;
+  text-shadow: 2px 2px 4px #000;
+}
+
+main {
+  margin-top: 20px;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+}
+
+form {
+  display: grid;
+  gap: 10px;
+  max-width: 600px;
+  margin: 0 auto;
+  background: #222;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+}
+
+label {
+  font-size: 1.2em;
+}
+
+input {
+  padding: 10px;
+  border: 2px solid #ff0;
+  border-radius: 5px;
+  background: #111;
+  color: #ff0;
+  font-size: 1em;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+input:focus {
+  background: #333;
+  border-color: #ff0000;
+}
+
+button {
+  padding: 15px 25px;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.2em;
+  cursor: pointer;
+  background: linear-gradient(45deg, #ff0, #0f0);
+  color: #000;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+button:hover {
+  transform: scale(1.1);
+  background: linear-gradient(45deg, #ff0000, #00f);
+}
+
+.btn-container button:hover {
+  transform: scale(1.1);
+  background: linear-gradient(45deg, #ff0000, #00f);
+}
+
+button i {
+  margin-right: 10px;
+}
+
+.btn-container {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+  overflow-x: auto;  /* Permite o scroll horizontal */
+  white-space: nowrap; /* Evita que os botões quebrem a linha */
+}
+
+.btn-container button {
+  flex-shrink: 0;  /* Impede os botões de encolherem */
+  width: 150px;  /* Define um tamanho fixo para os botões */
+  height: 50px;  /* Define uma altura fixa para os botões */
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(45deg, #ff0, #0f0);
+  color: #000;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+  font-size: 1em;
+  transition: transform 0.3s ease, background 0.3s ease;
+  cursor: pointer;
+}
+
+
+footer {
+  margin-top: 20px;
+  padding: 10px;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
+}
+
+footer p {
+  font-size: 1em;
+}
+
+@keyframes gradientAnimation {
+  0% { background-position: 0% 0%; }
+  50% { background-position: 100% 100%; }
+  100% { background-position: 0% 0%; }
+}
+
+h2, p {
+  font-size: 1.5em;
+  color: #ff0;
+}
+
+

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="formulário, dados pessoais, exemplo">
+    <meta name="description" content="Formulário para coletar dados pessoais como nome, idade, altura e CPF.">
+    <meta name="author" content="Luiz Eduardo">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://kit.fontawesome.com/a89aa029c3.js" crossorigin="anonymous"></script>
+    <title>Dados</title>
+</head>
+<body>
+    <header>
+        <h1>Dados</h1>
+    </header>
+    <main>
+        <form id="formDados" onsubmit="return salva()">
+            <label for="nome">Nome:</label>
+            <input id="nome" type="text" placeholder="Nome completo" required>
+            
+            <label for="idade">Idade:</label>
+            <input id="idade" type="number" placeholder="Idade" required min="0">
+            
+            <label for="altura">Altura (m):</label>
+            <input id="altura" type="text" placeholder="0.00" maxlength="5" oninput="formatarALTURA(this)">
+            
+            <label for="cpf">CPF:</label>
+            <input id="cpf" type="text" placeholder="000.000.000-00" maxlength="14" oninput="formatarCPF(this)">
+            <button type="submit" class="btn-salvar"><i class="fa-solid fa-check"></i></button>      
+            <div class="btn-container" id="btnContainer">
+            </div>
+        </form>
+        
+        <section id="resultado">
+            <h2 id="dados1"></h2>
+            <p id="dados"></p>
+        </section>
+    </main>
+    
+    <footer>
+        <p>&copy; 2024 Luiz Eduardo</p>
+    </footer>
+    
+    <script>
+        let pessoas = JSON.parse(localStorage.getItem('pessoas')) || [];
+
+        function formatarALTURA(campo) {
+            let valor = campo.value.replace(/\D/g, ''); 
+            
+            if (valor.length > 0) {
+                valor = valor.slice(0, 3); 
+            }
+            
+            if (valor.length <= 3) {
+                valor = valor.replace(/(\d{1})(\d)/, "$1.$2");
+            }
+            
+            campo.value = valor;
+        }
+
+        function formatarCPF(campo) {
+            let valor = campo.value.replace(/\D/g, ''); 
+            
+            if (valor.length <= 11) {
+                valor = valor.replace(/(\d{3})(\d)/, "$1.$2");
+                valor = valor.replace(/(\d{3})(\d)/, "$1.$2");
+                valor = valor.replace(/(\d{3})(\d{1,2})$/, "$1-$2");
+            }
+            
+            campo.value = valor;
+        }
+
+        function salva() {
+            let nome = document.getElementById("nome").value;
+            let idade = document.getElementById("idade").value;
+            let altura = document.getElementById("altura").value;
+            let cpf = document.getElementById("cpf").value;
+            
+            let pessoa = {
+                nome: nome,
+                idade: idade,
+                altura: altura,
+                cpf: cpf
+            };
+
+            pessoas.push(pessoa);
+            localStorage.setItem('pessoas', JSON.stringify(pessoas));
+            atualizaBotoes();
+
+            return false;
+        }
+
+        function atualizaBotoes() {
+            let container = document.getElementById("btnContainer");
+            container.innerHTML = ""; 
+
+            pessoas.forEach((pessoa, index) => {
+                let button = document.createElement("button");
+                button.type = "button";
+                button.innerText = pessoa.nome;
+                button.onclick = () => exibeDados(index);
+                container.appendChild(button);
+
+                let deleteButton = document.createElement("button");
+                deleteButton.innerHTML = '<i class="fa-solid fa-trash"></i>';
+                deleteButton.onclick = () => removeDado(index);
+                container.appendChild(deleteButton);
+            });
+        }
+
+        function exibeDados(index) {
+            let pessoa = pessoas[index];
+
+            document.getElementById("dados").innerHTML = 
+                `Nome: ${pessoa.nome}<br>
+                Idade: ${pessoa.idade}<br>
+                Altura: ${pessoa.altura}<br>
+                CPF: ${pessoa.cpf}`;
+            
+            document.getElementById("dados1").innerHTML = "Dados Informados:";
+        }
+
+        function removeDado(index) {
+            if (confirm("Deseja excluir estes dados?")) {
+                pessoas.splice(index, 1);
+                localStorage.setItem('pessoas', JSON.stringify(pessoas));
+                atualizaBotoes();
+                document.getElementById("dados").innerHTML = "";
+                document.getElementById("dados1").innerHTML = "";
+            }
+        }
+      
+        document.addEventListener('DOMContentLoaded', atualizaBotoes);
+    </script>
+</body>
+</html>
